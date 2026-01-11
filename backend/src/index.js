@@ -2,9 +2,10 @@ import "dotenv/config";
 import express from "express";
 
 import { connectDB } from "./utils/db.js";
+import { verifyToken } from "./middlewares/verifyToken.js";
 import authRoutes from "./routes/authRoutes.js";
 import resumeRoutes from "./routes/resumeRoutes.js";
-import { verifyToken } from "./middlewares/verifyToken.js";
+import applicationRoutes from "./routes/applicationRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", verifyToken, resumeRoutes);
+app.use("/api/application", verifyToken, applicationRoutes);
 
 connectDB()
   .then(() => {
