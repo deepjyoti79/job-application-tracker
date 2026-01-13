@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import cors from "cors";
 
 import { connectDB } from "./utils/db.js";
 import { verifyToken } from "./middlewares/verifyToken.js";
@@ -9,6 +10,7 @@ import applicationRoutes from "./routes/applicationRoutes.js";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
