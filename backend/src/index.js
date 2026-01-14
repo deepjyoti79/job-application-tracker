@@ -7,12 +7,14 @@ import { verifyToken } from "./middlewares/verifyToken.js";
 import authRoutes from "./routes/authRoutes.js";
 import resumeRoutes from "./routes/resumeRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
+import { validateEnvironment } from "./validators/envValidators.js";
+const env = validateEnvironment();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = process.env.PORT || 5000;
+const PORT = env.PORT ?? 5000;
 
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", verifyToken, resumeRoutes);
